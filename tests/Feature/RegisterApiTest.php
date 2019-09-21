@@ -14,7 +14,7 @@ class RegisterApiTest extends TestCase
     /**
      * A basic feature test example.
      *
-     * @return void
+     * @test
      */
     public function should_新しいユーザーを作成して返却する()
     {
