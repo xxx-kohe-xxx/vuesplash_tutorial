@@ -14,6 +14,14 @@
     </ul>
     <div class="panel" v-show="tab===1">
       <form action="" class="form" @submit.prevent="login">
+        <div class="errors" v-if="loginErrors">
+          <ul v-if="loginErrors.email">
+            <li v-for="msg in loginErrors.email" :key="msg">{{msg}}</li>
+          </ul>
+          <ul v-if="loginErrors.password">
+            <li v-for="msg in loginErrors.password" :key="msg">{{msg}}</li>
+          </ul>
+        </div>
         <label for="login-email">Email</label>
         <input type="text" class="form__item" id="login-email" v-model="loginForm.email">
         <label for="login-password">Password</label>
@@ -25,6 +33,17 @@
     </div>
     <div class="panel" v-show="tab===2">
       <form action="" class="form" @submit.prevent="register">
+        <div class="errors" v-if="registerErrors">
+          <ul v-if="registerErrors.name">
+            <li v-for="msg in registerErrors.name" :key="msg">{{msg}}</li>
+          </ul>
+          <ul v-if="registerErrors.email">
+            <li v-for="msg in registerErrors.email" :key="msg">{{msg}}</li>
+          </ul>
+          <ul v-if="registerErrors.password">
+            <li v-for="msg in registerErrors.password" :key="msg">{{msg}}</li>
+          </ul>
+        </div>
         <label for="username">Name</label>
         <input type="text" class="form__item" id="username" v-model="registerForm.name">
         <label for="email">Email</label>
@@ -42,6 +61,9 @@
 </template>
 
 <script>
+
+import { mapState } from 'vuex'
+
 export default {
   data(){
     return {
@@ -72,13 +94,34 @@ export default {
       await this.$store.dispatch('auth/register', this.registerForm)
 
       // トップページに移動する
-      this.$router.push('/')
+      if(this.apiStatus){
+        this.$router.push('/')
+      }
+    },
+    clearError(){
+      this.$store.commit('auth/setLoginErrorMessage', null)
+      this.$store.commit('auth/setRegisterErrorMessage', null)
     }
+  },
+  created() {
+    this.clearError()
   },
   computed: {
     apiStatus(){
       return this.$store.state.auth.apiStatus
+    },
+    loginErrors(){
+      return this.$store.state.auth.loginErrorMessage
+    },
+    registerErrors(){
+      return this.$store.state.auth.registerErrorMessage
     }
+
+    // mapStateを使った場合
+    // mapState({
+    //   apiStatus: state => state.auth.apiStatus,
+    //   loginErrorMessage: state => state.auth.loginErrorMessage
+    // })
   }
 }
 </script>
