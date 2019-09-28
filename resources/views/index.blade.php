@@ -11,7 +11,7 @@
   {{-- Fonts --}}
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather|Roboto:400">
-  <link rel="stylesheet" href="https://unpkg.com/ionicons@@4.2.2/dist/css/ionicons.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css">
 
   {{-- Styles --}}
   <link rel="stylesheet" href="{{ mix('css/app.css') }}">
