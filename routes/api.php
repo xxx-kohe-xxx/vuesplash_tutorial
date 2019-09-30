@@ -7,3 +7,4 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/user', function(){
   return Auth::user();
 })->name('user');
+Route::post('/photo', 'PhotoController@create')->name('photo.create'); // 写真投稿
